@@ -523,6 +523,7 @@ for Shot_number in Shot_numbers:
     ## Basically because I run the ratiocurve calculation instead of just reading a file in
     ## Same would be true for the Find_filter_thickness class
     ## I've tried uploading the Ratiocurve analysis file but it might not have worked
+    ## You can use the DAT files zipped in the ExampleDAT folder
     #%%
     TE_GEN = Generate_Te_map(READ, RATIO.ratio_image)
     # Te_map = TE_GEN.te_map
