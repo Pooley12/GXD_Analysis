@@ -11,29 +11,37 @@ import sys
 import matplotlib as mpl
 
 class Setup:
+    ## This is just for when it's imported into other scripts
     def __init__(self, Material, Filters=None, Electron_dens = None):
         if Material == 'CHCl':
+            PARENT_loc = os.path.join(os.getcwd())
+            FILTER_loc = os.path.join(PARENT_loc, 'Filters')
+            DETECTOR_SENSITIVITY_loc = os.path.join(PARENT_loc, 'Sensitivities', 'GXD_Sensitivity.csv')
+
+            Spect3D_program_loc = os.path.join('/', 'Applications', 'Spect3D', 'Spect3D.app', 'Contents', 'MacOS', 'Spect3D')
+            Spect3D_workspace = os.path.join(PARENT_loc, 'single_cell.spw')            
+            
             Foil_composition = ['C 0.499', 'H 0.438', 'Cl 0.063']
             OUTPUT_file_loc = os.path.join(PARENT_loc, 'Ratiocurves', 'CHCl')
-            PROPACEOS_file_loc = os.path.join(PROPACEOS_loc, 'C49_9H43_8Cl6_3.prp')
+            PROPACEOS_file = os.path.join(PROPACEOS_loc, 'C49_9H43_8Cl6_3.prp')
 
-        ## NIF Te Resolution
-        # Electron_temps = np.concatenate([np.arange(50, 1000, 10), np.arange(1000, 3000, 25), np.arange(3000, 5010, 50)])  # eV
-        ## OMEGA Te Resolution
         Electron_temps = np.concatenate([np.arange(20, 150, 1), np.arange(150, 1000, 10), np.arange(1000, 3000, 100), np.arange(3000, 5010, 1000)])  # eV
         if Electron_dens is None:
             Electron_dens = [2e20]
-
+        Spect3D_areal_size = 0.1  # cm
+        
         if Filters is None:
             Filters = [['Mylar 1 0', 'V 0.2 0', 'Al 0.8 0'], ['Mylar 2 0', 'V 0.2 0', 'Al 0.8 0']]
 
-        CREATION = Create_Ratiocurves(Filters=Filters, DAT_loc=os.path.join(OUTPUT_file_loc, 'DAT_files'),
-                                      Filter_loc=FILTER_loc, Detector_Sensitivity_loc=DETECTOR_SENSITIVITY_loc,
-                                      Tes=Electron_temps, nes=Electron_dens,
-                                      Add_errors=False, err=0.2)
+        CALCS = Scattering_Calculations(Atomic_makeup=Foil_composition, OUTPUT_loc=OUTPUT_file_loc,
+                Electron_temperature=Electron_temps, Electron_density=Electron_dens,
+                Size=Spect3D_areal_size, Spect3D_workspace=Spect3D_workspace, Spect3D_program=Spect3D_program_loc,
+                PROPACEOS_file=PROPACEOS_file)
+        
+        CREATE = Create_Ratiocurves(Filters=Filters, Filter_loc=FILTER_loc, Detector_Sensitivity_loc=DETECTOR_SENSITIVITY_loc,
+                    SCATTERING_CALC=CALCS, type='dat', Add_errors=False)
         # self.signals = CREATION.filter_signals
-        self.ratiocurve_info = CREATION.ratiocurve
-
+        self.ratiocurve_info = CREATE.get_ratiocurves(plot=False)
 
     def __getattr__(self, name):
         return getattr(self, name)
@@ -476,34 +484,6 @@ class Scattering_Calculations:
                                                                                                                                     'Number of points = {}\n'
                                                                                                                                     'Photon Energy (eV)\t\tIntensity (erg/cm2/s/eV)'.format(te, str(ne).replace('+', ''), int(size*10), len(pe)))
 
-    def add_detector_responses(self):
-        DET_RES = Create_Detector_Response(Filters=self.Filters, Filter_loc=self.FILTER_loc,
-                                    Detector_Sensitivity_loc=self.DETECTOR_SENSITIVITY_loc,
-                                    Add_errors=False)
-        self.Photon_energy = DET_RES.Photon_energy
-        self.Detector_responses = DET_RES.Detector_responses
-
-        intensity_signals = np.zeros((len(self.Filters), self.te_size, self.ne_size))
-        te_list = []
-        ne_list = []
-        emission_list = []
-        for te, ne, pe, spectrum in self.spect3d_outputs:
-            t, n = np.where(self.Electron_temps == te)[0][0], np.where(self.Electron_dens == ne)[0][0]
-            te_list.append(te), ne_list.append(ne), emission_list.append(spectrum)
-            
-            interp_spec = np.interp(self.Photon_energy, pe, spectrum, left=np.nan, right=np.nan)
-            for f in range(len(self.Filters)):
-                Signal = interp_spec*self.Detector_responses[f]
-                Integrated_sig = np.trapezoid(Signal, x=self.Photon_energy)
-                intensity_signals[f, t, n] = Integrated_sig
-
-        ## Save all to one .npz file
-        np.savez(os.path.join(self.OUTPUT_loc, 'ne_te_emission.npz'), te=te_list, ne=ne_list, photon_energy=pe, spectra=emission_list)
-
-        self.intensity_signals = intensity_signals
-
-        return
-
 class Create_Ratiocurves:
     def __init__(self, Filters, Filter_loc, Detector_Sensitivity_loc, SCATTERING_CALC, type='dat', Add_errors=False, err=0.2):
 
@@ -526,7 +506,6 @@ class Create_Ratiocurves:
             self.npz_loc = os.path.join(SCATTERING_CALC.OUTPUT_loc, 'ne_te_emission.npz')
             self.get_npz_spectra()
 
-        # self.ratiocurve = self.get_ratiocurves()
         # self.counts()
         # self.spectrum()
         # self.filter_signals = self.get_intensity_te_comp()
@@ -733,7 +712,7 @@ class Create_Ratiocurves:
 
         return Filter_signals
 
-    def get_ratiocurves(self, plot=True):
+    def get_ratiocurves(self, plot=False):
 
         def get_intensity_signals(filter_locs=[0, 1]):
             intensity_signals = np.zeros((len(self.Filters), len(self.All_nes), len(self.All_Tes)))
@@ -786,7 +765,7 @@ class Create_Ratiocurves:
             plt.show()
 
         self.Te, self.Ratio = New_temps, interp_ratios
-        return
+        return self.Te, self.Ratio
 
 def process_cell(args):
     try:
@@ -801,6 +780,11 @@ def process_cell(args):
         print(f'[ERROR] process_cell failed at Te={args[0]}, ne={args[1]}: {e}')
         raise  # Re-raise to crash the pool
 
+
+## This code can be run on its own to perform SPECT3D calculations
+## and create ratiocurves for user-specified filters
+## The user inputs are defined in the __main__ section
+## Or it can be imported as a module to use the classes
 if __name__ == "__main__":
     #%%
     ## Define user inputs (file locations, filters, foil composition, parameter space to explore)
@@ -884,14 +868,11 @@ if __name__ == "__main__":
 
     #%%
     ## Create Ratiocurves
-    ## This creates ratiocurves for spectra
-    ## saved in DAT_loc, using the user-specified
-    ## Filters. DAT_loc can be called out or
-    ## found using EXTRACT.DAT_loc
-    ## There is a bool, Add_errors which when called out
-    ## calculates and plots the ratiocurves for filter
-    ## packs with +/-20% thickness error
-    CREATE =     Create_Ratiocurves(Filters=Filters, Filter_loc=FILTER_loc, Detector_Sensitivity_loc=DETECTOR_SENSITIVITY_loc,
+    ## This creates ratiocurves for user-specified filters
+    ## Interpolates spectra either saved in DAT_loc, or in the npz file
+    ## The Add_errors bool calculates and plots the ratiocurves for filter packs with +/-20% thickness error (can be changed by pass err=0.xx to Create_Ratiocurves)
+    CREATE = Create_Ratiocurves(Filters=Filters, Filter_loc=FILTER_loc, Detector_Sensitivity_loc=DETECTOR_SENSITIVITY_loc,
                     SCATTERING_CALC=CALCS, type='npz', Add_errors=True)
     
     CREATE.get_ratiocurves()
+    ## There are other functions in the Create_Ratiocurves class that I need to tidy up...
