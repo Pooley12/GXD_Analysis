@@ -1,0 +1,492 @@
+Workspace Format ID  = 3
+[Header Data]:
+   Format ID = 1
+   SPECT3D Version_20.1.0
+[End Header Data]
+
+[Simulation Type Data]:
+   Format ID = 5
+#
+   Coll-Rad Model ID             = 0
+   Hydro model ID                = 1
+   File format ID                = 0
+   Hydro file name               = 
+   Time-dep nodes/connectivity   = 0
+   Temperature model             = 1
+   Use velocity from hydro file  = 0
+   Spatial grid load model       = 1
+   Use AMR grid data if avail.   = 1
+#
+[End Simulation Type Data]
+
+[Geometry Data]:
+   Format ID = 3
+#
+   Geometry type                 = 0
+   Num dimensions                = 0
+   Transformation ID             = 0
+   Number of repeating sectors   = 1
+   Bound-1 Min                   = -1
+   Bound-1 Max                   = 1
+   Bound-2 Min                   = -1
+   Bound-2 Max                   = 1
+   Use plane reflect X           = 0
+   Use plane reflect Y           = 0
+   Use plane reflect Z           = 0
+   Plane reflect X offset        = 0
+   Plane reflect Y offset        = 0
+   Plane reflect Z offset        = 0
+   Use volume element groups     = 0
+   Number of XYZ groups          = 5
+#
+[End Geometry Data]
+
+[Hydrocode Variables Data]:
+   Format ID = 4
+#
+   Grid type                     = 2
+   Material model                = 1
+   Num material frac variables   = 0
+   Temperature unit              = 4
+   Total density unit            = 0
+   Position unit                 = 2
+   Velocity unit                 = 0
+   Temperature variable          = 
+   Ion temperature variable      = 
+   Total density variable        = 
+   Position 1 variable           = 
+   Position 2 variable           =  
+   Position 3 variable           =  
+   Velocity 1 variable           =  
+   Velocity 2 variable           =  
+   Velocity 3 variable           =  
+   Include hot electrons         = 0
+   Hot electron model            = -1
+   Hot electron temp variable    = 
+   Hot electron data variable    = 
+#
+[End Hydrocode Variables Data]
+
+[Single Cell Data]:
+   Format ID = 2
+#
+   Uniform Temperature       = 1000
+   Uniform Temperature Units = 1
+   Uniform Density           = 3.120360473524724e-05
+   Uniform Density Units     = 0
+   Characteristic Size       = 3.1203604735247245e-06
+   Size Units                = 0
+   Ion Temperature           = 1000
+   Ion Temperature Units     = 1
+#
+[End Single Cell Data]
+
+[Material Data]:
+   Format ID = 8
+#
+  Number of Materials = 1
+  PrOpacEos directory location        = 0
+  PrOpacEos environment variable Path = /Applications/PRISMxHannah/DataTables/PROPACEOS_5.1.0
+  User set PrOpacEos directory        = 
+#
+  Parameters for Material =  Foil
+#
+   Material type          = 1
+   Hydrofile variable ID  = 
+   Number Fraction        = 1
+   Mean atomic weight     = 5.005989
+   Opacity locator ID     = 1
+   Opacity filepath       = /Users/hpoole/Library/CloudStorage/OneDrive-Personal/Documents/PhD/Simulations/PROPACEOS/HDC/HDC.prp
+   Use opac multiplier    = 0
+   Opacity multiplier     = 1
+   Use constant opacity   = 0
+   Opacity constant       = 0
+   Use Opacity override range = 0
+   Opacity range minimum Te   = 0
+   Opacity range maximum Te   = 0.1
+   Opacity range minimum Rho  = 1
+   Opacity range maximum Rho  = 10
+   Opacity range minimum hv   = 0
+   Opacity range maximum hv   = 10
+   Use XRTS tabular override  = 0
+   XRTS tabular override file = /Users/hpoole/Documents/PycharmProjects/TDYNO/Shot_day_prep/Ratiocurves/
+   Opaque emitter         = 0
+   Opaque emitter file    = 
+   Use vapor fraction     = 0
+   Vapor fraction ID      =  
+#
+   Have netcdf overrides  = 1
+   Override temperature ID = 0
+   Temperature geometry    = 0
+   Temperature expression  =  
+   Override density ID     = 0
+   Density geometry        = 0
+   Density expression      =  
+   Override fluid vel. ID  = 0
+   Fluid vel. geometry     = 0
+   Fluid vel. expression   =  
+   Override vapor frac. ID = 0
+   Vapor frac. geometry    = 0
+   Vapor frac. expression  =  
+  Number of Atomic Elements = 0
+#
+#
+[End Material Data]
+
+[Atomic Data]:
+   Format ID = 3
+#
+  Number of Atomic Elements        = 0
+  Atomic directory location        = 0
+  Atomic environment variable Path = /Applications/PRISMxHannah/DataTables/ATBASE_6.2.0
+  User set atomic directory        = 
+#
+[End Atomic Data]
+
+[Kinetics Model Data]:
+   Format ID = 22
+#
+   Population model          = 0
+   Photon processes model    = 0
+   Num. cells short char.    = 3
+   Coll Exc/Deexc mult.      = 1
+   Coll Iz/Rec mult.         = 1
+   Photo Exc/Stim emis mult. = 1
+   Photo Iz/Stim rec mult.   = 1
+   Spontaneous emis mult.    = 1
+   Radiative rec mult.       = 1
+   Autoiz/Diel rec mult.     = 1
+   Min. Osc. Strength for grid  = 0.001
+   Num pts in continuum      = 1000
+   Num pts per BB transition = 13
+   Doubly excited trans.     = 0
+   Num. angles rr1           = 0
+   Num. angles rr2           = 0
+   R-Z angle model type      = 0
+   R-Z SN angle model        = 6
+ [table format=1]:    Hotspot Radius:
+  # table rows = 0
+  # table cols = 0
+   Num. ang. pts phi                 = 0
+   Num. ang. pts theta (hotspot)     = 0
+   Num. ang. pts theta (non-hotspot) = 0
+   Use path length corr. for Shortc  = 1
+   Cache opacs & emiss for image in 1D RT = 1
+   Separate bb & bf trans phot. en. grids = 1
+   Use new lineshape model                = 1
+   Solver Method for Steady-State Pops         = 1
+   Max iters for pseudo-time-dep solver        = 150
+   Max iters for steady-state iterative solver = 500
+   Apply accel. convergence  = 0
+   Cont lowering model ID    = 1
+   Energy scale factor       = 1
+   Dense plasma              = 0
+   Number of atomic models = 0
+   Turn off cont. lowering   = 0
+   Inc. turbulent velocity   = 0
+   Turbulent velocity        = 0
+   Include inner transitions = 0
+   Max. # of bound electrons = 100
+   Min. # of bound electrons = 11
+   Max. principal q. num.    = 4
+   Use the Prism solver      = 0
+   Num. timesteps for solver = 1000
+   Line width mods formatID  = 1
+   Line profile data type    = 0
+   Line profile data file    =  
+   Line width units          = 0
+   Num line width settings   = 0
+   B-B modifiers format ID  = 1
+   Number of modified lines = 0
+   Wavelength modifier mode = 0
+   Wavelength units ID      = 0
+   Osc. str. modifier mode  = 0
+#
+[End Kinetics Model Data]
+
+[Ext. Radiation Source Data]:
+   Format ID = 2
+#
+   Rad source at Rmin is on        = 0
+   Rad source at Rmax is on        = 0
+   Rad source model at Rmin        = 1
+   Rad source model at Rmax        = 1
+   VisRad filepath for Rmin        = 
+   VisRad filepath for Rmax        = 
+   Exodus variable for Rmin        =   
+   Exodus variable for Rmax        =   
+ [table format=1]:    Time-dependent Drive Temperatures at Rmin:
+  # table rows = 0
+  # table cols = 0
+ [table format=1]:    Time-dependent Drive Temperatures at Rmax:
+  # table rows = 0
+  # table cols = 0
+ [table format=1]:    Time-dependent Drive and Brightness Temperatures at Rmin:
+  # table rows = 0
+  # table cols = 0
+ [table format=1]:    Time-dependent Drive and Brightness Temperatures at Rmax:
+  # table rows = 0
+  # table cols = 0
+#
+[End Ext. Radiation Source Data]
+
+[Backlighter Data]:
+   Format ID = 7
+#
+   Backlighter spectral type = 0
+   Backlighter spatial type  = 0
+   Ext. rad. source bd. ID   = 0
+   File photon en. units     = 0
+   File intensity units      = 0
+   Spot radius (microns)     = 100
+   Number radial points      = 2
+   Number azimuthal points   = 2
+   Supergaussian exponent    = 1
+   Foil tilt angle           = 90
+   Uniform spot rad.(mcrns)  = 10
+[X Ray Data]:
+   Format ID = 7
+#
+   X-ray photon energy       = 3000
+   X-ray brightness temp.    = 3000
+   Source position           =  0.00000e+00    0.00000e+00    0.00000e+00   
+   Coordinate id             = 0
+   Max. down shift           = 3.00000e+03
+   Max. up shift             = 3.00000e+02
+   Energy step               = 1.00000e+00
+   Profile type              = 1
+ [table format=1]:    X Ray Line Shape:
+  # table rows = 0
+  # table cols = 0
+   Sigma                     = 5.00000e+01
+   Index                     = 2.00000e+00
+   Num. bins per pixel       = 1
+   Use ion feature           = 0
+   Ion feature               = 1.00000e+00
+   Override mean charge      = 0
+   Mean charge               = 1.00000e+00
+   Use Debye temperature     = 0
+   Debye temperature         = 1.00000e-01
+   Use band gap              = 0
+   Band gap                  = 1.00000e+00
+   Use ion temperature       = 0
+   Use XRTS flag if avail.   = 0
+   Total spectrum model      = 0
+   Use alpha model override  = 0
+   Alpha override threshold  = 1.00000e-10
+   Use core                  = 0
+   Num points Dawson         = 32
+   Num points Distribution   = 32
+   Num points PVI            = 128
+   Num points Landen         = 512
+   Num points Relaxation     = 2048
+   Num points FFT            = 2048
+   Tolerance                 = 1.00000e-03
+   Static model              = 2
+   Bound free model          = 2
+   Cont. lowering model      = 1
+   Cont. lowering value      = 0.00000e+00
+   Use advanced mix model    = 0
+   Use IRS model             = 0
+   Override hard sph. diam.  = 0
+   Hard sphere diam.         = 1.00000e-10
+   Real polarizability       = 0.00000e+00
+   Imag. polarizability      = 0.00000e+00
+   Override static field     = 0
+   Static field factor       = 1.00000e+00
+   Use K L Shifts  = 0
+   K Shift         = 1.00000e-10
+   L Shift         = 1.00000e-10
+   Normalize RPA             = 1
+   Normalize Lindhard        = 1
+   Normalize Salpeter        = 1
+   Normalize Landen          = 1
+   Normalize RPATsytovich    = 1
+   Normalize StaticLFC       = 1
+   Normalize DynamicLFC      = 1
+   Normalize MFF             = 1
+   Normalize BMAsLFC         = 1
+   Normalize Core            = 1
+   Normalize Total           = 1
+   Include RPA               = 0
+   Include Lindhard          = 0
+   Include Salpeter          = 0
+   Include Landen            = 0
+   Include RPATsytovich      = 0
+   Include StaticLFC         = 0
+   Include DynamicLFC        = 0
+   Include MFF               = 0
+   Include BMAsLFC           = 0
+   Include Core              = 0
+   Include Total             = 0
+   Use aperture              = 0
+   Output XRTS input file    = 1
+   Minimum temperature       = 1.00000e-02
+   Maximum temperature       = 1.00000e+04
+   Minimum density           = 1.00000e-05
+   Maximum density           = 1.00000e+02
+   Check minimum temperature = 0
+   Check maximum temperature = 0
+   Check minimum density     = 0
+   Check maximum density     = 0
+   Bound-free norm. method   = 0
+   Bound-free norm. param    = 1.00000e+00
+   Effective electron mass   = 1.00000e+00
+   Use Doppler broadening    = 0
+   Multiplier for Tion       = 1.00000e+00
+[End X Ray Data]:
+
+[Aperture Data]:
+   Format ID = 1
+#
+   End point                =  0.00000e+00    0.00000e+00    0.00000e+00   
+   Distance to source       = 1.00000e+00
+   Height                   = 1.00000e+00
+   Width                    = 1.00000e+00
+   Horizontal shift         = 0.00000e+00
+   Vertical shift           = 0.00000e+00
+   Alignment ID             = 2
+   Coord ID                 = 0
+[End Aperture Data]:
+
+  Number of backlighter time steps = 0
+#
+[End Backlighter Data]
+
+[Detector Data]:
+   Format ID = 20
+#
+   Number of detectors       = 1
+#
+   Name                      = Detector 1
+   Used                      = 1
+   Orientation geometry ID   = 0
+   Detector pos 1            = 0.00000e+00
+   Detector pos 2            = 0.00000e+00
+   Detector pos 3            = -2.00000e-03
+   Center of Proj pos 1      = 0.00000e+00
+   Center of Proj pos 2      = 0.00000e+00
+   Center of Proj pos 3      = 0.00000e+00
+   Cone half angle           = 1.00000e+01
+   Pixel count horiz.        = 1
+   Pixel count vert.         = 1
+   Pixel count radial        = 1
+   Pixel count angular       = 1
+   Detector width            = 1.00000e+00
+   Detector height           = 1.00000e+00
+   Detector radius           = 5.00000e-01
+   Detector shape            = 0
+   Circular type             = 9
+   Projection geometry       = 0
+   Image plane alignment ID  = 1
+   Portion to compute ID     = 0
+   Spatial resolved spect.   = 0
+   Spectrum per pixel        = 0
+   XRD resistence            = 5.00000e+01
+   XRD effective area        = 1.00000e+00
+   Compute Schlieren image   = 0
+   Compute shadowgraphy      = 0
+   Schlieren image alignment = 0
+   E dens laser wavelength   = 1.00000e+00
+   Bragg angle (degrees)     = 8.00000e+01
+   Crystal radius (cm)       = 2.50000e+01
+   BackL-Xstal-Det orient.   = 1
+   Use backlighter           = 0
+   Write binned LOS spectra  = 0
+   Num. of LOS spectra bins  = 100
+   Min hv for bins           = 1.00000e-01
+   Max hv for bins           = 1.00000e+04
+   Binned spectra format     = 0
+   Spectrometer type         = 0
+   Crystal type              = 0
+   Crystal curvature         = 1.000000000000e+01
+   Crystal lattice 2d        = 0.000000000000e+00
+   Central Bragg angle       = 4.500000000000e+01
+   Crystal-detector dist.    = 5.000000000000e+00
+   Plasma-slit dist.         = 5.000000000000e+00
+   Source position X         = 0.000000000000e+00
+   Source position Y         = 0.000000000000e+00
+   Source position Z         = 0.000000000000e+00
+   Crystal position X        = 1.000000000000e+01
+   Crystal position Y        = 0.000000000000e+00
+   Crystal position Z        = 0.000000000000e+00
+   Slit size X               = 5.000000000000e-01
+   Slit size Y               = 2.500000000000e-01
+   Crystal size X            = 5.000000000000e-01
+   Crystal size Y            = 2.500000000000e-01
+   Detector size X           = 5.000000000000e-01
+   Detector size Y           = 2.500000000000e-01
+   Slit pixel count X        = 5
+   Slit pixel count Y        = 5
+   Crystal pixel count X     = 5
+   Crystal pixel count Y     = 5
+   Detector pixel count X    = 5
+   Detector pixel count Y    = 5
+   Use crystal rocking curve width table = 0
+   Use crystal reflectivity table        = 0
+ [table format=1]: Crystal Rocking Curve Widths
+  # table rows = 0
+  # table cols = 2
+ [table format=1]: Crystal Reflectivity Values
+  # table rows = 0
+  # table cols = 2
+   Specific intensity same for all rays  = 0
+   Angle interpolation point count X     = 1
+   Angle interpolation point count Y     = 1
+   Major radius              = 2.050000000000e+02
+   Minor radius              = 2.667000000000e+01
+   Alignment type            = 0
+   Focus-detector distance   = 7.100000000000e+00
+   Write CSI file            = 1
+  Number of framing camera filter response functions = 0
+  Number of XRD filter response functions = 0
+#
+[End Detector Data]
+
+[Spectral Grid Data]:
+   Format ID = 6
+#
+   Min photon energy         = 1.000000000000e+01
+   Max photon energy         = 1.000000000000e+04
+   Num pts in continuum      = 4000
+   Add filter photons        = 1
+   Min line strength         = 1.000000000000e-03
+   Num pts per BB transition = 13
+   Num pts per BF transition = 2
+   Include Doppler shift     = 0
+#
+[End Spectral Grid Data]
+
+[Output Data]:
+   Format ID = 2
+#
+   Write heat/cool rates                = 0
+   Write zone intensities               = 0
+   Write popul for LTE                  = 0
+   Number of extra photon energies      = 0
+   Number of optical depth iso-surfaces = 0
+   Number of zones for output           = 0
+#
+[End Output Data]
+
+[S3D Run Data]:
+   Format ID = 3
+#
+   Number of hydro simulation times    = 1
+   Hydro Time index                    = 1
+   Number of time dependent sim times  = 0
+ [table format=1]:    Time dependent simulation time grid:
+  # table rows = 0
+  # table cols = 0
+Calculate spectrum and image parameter:
+#
+[End S3D Run Data]
+
+[Dialog Settings Data]:
+   Format ID = 1
+#
+[End Dialog Settings Data]
+
+
+[End of Workspace File]
+
