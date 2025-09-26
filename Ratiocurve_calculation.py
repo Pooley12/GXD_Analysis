@@ -15,6 +15,7 @@ class Setup:
     def __init__(self, Material, Filters=None, Electron_dens = None):
         if Material == 'CHCl':
             PARENT_loc = os.path.join(os.getcwd())
+            PROPACEOS_loc = os.path.join(PARENT_loc, 'EOS')
             FILTER_loc = os.path.join(PARENT_loc, 'Filters')
             DETECTOR_SENSITIVITY_loc = os.path.join(PARENT_loc, 'Sensitivities', 'GXD_Sensitivity.csv')
 
@@ -858,13 +859,13 @@ if __name__ == "__main__":
                     Size=Spect3D_areal_size, Spect3D_workspace=Spect3D_workspace, Spect3D_program=Spect3D_program_loc,
                     PROPACEOS_file=PROPACEOS_file)
     ## Run the calculations in parallel
-    CALCS.run_parallel_calcs()
+    # CALCS.run_parallel_calcs()
     # ## Run the calculations linear - (use if parallel fails)
     # # CALCS.run_linear_calcs()
     
     # ## Choose how to save the outputs
-    CALCS.create_npz_output()
-    CALCS.create_dat_output()
+    # CALCS.create_npz_output()
+    # CALCS.create_dat_output()
 
     #%%
     ## Create Ratiocurves

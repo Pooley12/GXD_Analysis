@@ -469,7 +469,7 @@ class Generate_Te_map:
             plt.show()
         return
 
-    def get_te_map(self, plot=False):
+    def get_te_map(self, plot=True):
         x_pix, y_pix = np.arange(-np.shape(self.ratio_map)[1]/2, np.shape(self.ratio_map)[1]/2, 1), np.arange(-np.shape(self.ratio_map)[0]/2, np.shape(self.ratio_map)[0]/2, 1)
         x, y = x_pix*mm_per_pixel, y_pix*mm_per_pixel
 
@@ -513,6 +513,7 @@ class Generate_Te_map:
 for Shot_number in Shot_numbers:
     READ = Read_image(Shot_number)
 
+    #%%
     RATIO = Generate_ratio_image(READ.image, READ)
 
     ## This takes time..
@@ -521,6 +522,9 @@ for Shot_number in Shot_numbers:
     ## I have a feeling this won't work for you..
     ## Basically because I run the ratiocurve calculation instead of just reading a file in
     ## Same would be true for the Find_filter_thickness class
-    # TE_GEN = Generate_Te_map(READ, RATIO.ratio_image)
+    
+    #%%
+    TE_GEN = Generate_Te_map(READ, RATIO.ratio_image)
     # Te_map = TE_GEN.te_map
     # Te_mean, Te_std = np.nanmean(Te_map), np.nanstd(Te_map)
+# %%
