@@ -42,7 +42,7 @@ class Setup:
         CREATE = Create_Ratiocurves(Filters=Filters, Filter_loc=FILTER_loc, Detector_Sensitivity_loc=DETECTOR_SENSITIVITY_loc,
                     SCATTERING_CALC=CALCS, type='dat', Add_errors=False)
         # self.signals = CREATION.filter_signals
-        self.ratiocurve_info = CREATE.get_ratiocurves(plot=False)
+        self.ratiocurve_info = CREATE.get_ratiocurves(plot=True)
 
     def __getattr__(self, name):
         return getattr(self, name)
@@ -589,7 +589,6 @@ class Create_Ratiocurves:
         self.All_nes = ne_list
         self.All_Tes = te_list
         self.spect3d_spectra = ALL_SPECTRA
-        print(np.shape(self.spect3d_spectra))
 
     def counts(self):
         self.get_detector_responses()
@@ -837,7 +836,7 @@ if __name__ == "__main__":
     Electron_temps = [100, 200, 400, 500, 800, 900, 1200]
 
     ## Electron density resolution
-    # Electron_dens = [8e19, 9e19, 1e20, 2e20, 3e20, 4e20, 5e20, 6e20, 7e20, 8e20, 9e20, 1e21] # cm^-3
+    # Electron_dens = [8e19, 9e19, 1e20, 2e20, 3e20, 4e20, 5e20, 6e20, 7e20, 8e2x0, 9e20, 1e21] # cm^-3
     Electron_dens = [1e20, 5e20] # cm^-3
 
     ## This code can only work with two filters.

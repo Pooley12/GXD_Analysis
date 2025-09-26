@@ -1,3 +1,4 @@
+#%%
 import numpy as np
 import os
 import itertools
@@ -447,7 +448,7 @@ class Generate_Te_map:
         if Save_info:
             np.savetxt(os.path.join(self.file_loc, 'XRFC_temap_{}.txt'.format(self.shot_number)), self.te_map)
 
-    def ratiocurve_run(self, filter_errs=[0.0, 0.0, 0.0, 0.0], plot=False):
+    def ratiocurve_run(self, filter_errs=[0.0, 0.0, 0.0, 0.0], plot=True):
         filt1_arr = ['Mylar 1 {}'.format(filter_errs[0]), 'V 0.2 {}'.format(filter_errs[2]),
                      'Al 0.8 {}'.format(filter_errs[3])]
         filt2_arr = ['Mylar 2 {}'.format(filter_errs[1]), 'V 0.2 {}'.format(filter_errs[2]),
@@ -456,8 +457,7 @@ class Generate_Te_map:
 
         Run_Ratiocurve = Setup('CHCl', Filters=filt_arr, Electron_dens=[float(self.ne)])
         data = Run_Ratiocurve.ratiocurve_info
-        self.ratio_te_org, self.ratio_org = data[0], data[1]
-
+        self.ratio_te_org, self.ratio_org = data[0], data[1][0]
         ratio_te = self.ratio_te_org.copy()[np.argmax(self.ratio_org):]
         ratio = self.ratio_org.copy()[np.argmax(self.ratio_org):]
 
@@ -509,7 +509,7 @@ class Generate_Te_map:
 
         return Te_map
 
-
+#%%
 for Shot_number in Shot_numbers:
     READ = Read_image(Shot_number)
 
@@ -522,7 +522,7 @@ for Shot_number in Shot_numbers:
     ## I have a feeling this won't work for you..
     ## Basically because I run the ratiocurve calculation instead of just reading a file in
     ## Same would be true for the Find_filter_thickness class
-    
+    ## I've tried uploading the Ratiocurve analysis file but it might not have worked
     #%%
     TE_GEN = Generate_Te_map(READ, RATIO.ratio_image)
     # Te_map = TE_GEN.te_map
